@@ -1,0 +1,7 @@
+# Algoritmo Utilizado
+algoritmo==>SQLite
+
+# Localização do Banco
+db==>integrador/dados/banco1.db
+user==>napp
+password==>123mudar
