@@ -9,7 +9,7 @@ class TestPedido:
         cliente = Cliente('José da Silva')
         pedido = Pedido(cliente)
         assert isinstance(pedido, Pedido)
-        assert pedido.itens == []
+        assert pedido.itens == {}
 
     def test_class_declared_fail(self):
         msg_erro = 'Não é possível instanciar um Pedido sem um cliente'
@@ -27,7 +27,7 @@ class TestPedido:
         cliente = Cliente('José da Silva')
         pedido = Pedido(cliente)
         assert pedido.cliente.nome == 'José da Silva'
-        assert pedido.itens == []
+        assert pedido.itens == {}
         pedido.itens = [1]
         assert pedido.itens == [1]
 

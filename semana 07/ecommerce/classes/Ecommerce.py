@@ -1,11 +1,12 @@
 from ecommerce.classes.Produto import Produto
 from ecommerce.classes.Pedido import Pedido
+from ecommerce.classes.Estoque import Estoque
 
 
 class Loja:
     def __init__(self, nome):
         self._nome = nome
-        self._estoque = []
+        self._estoque = {}
 
     @property
     def nome(self):
@@ -26,27 +27,28 @@ class Loja:
         return 'Nome da Loja => ' + self.nome
 
     def add_estoque(self, ean, preco, quantidade):
-        for i in range(quantidade):
-            self._estoque.append(Produto(ean=ean, preco=preco))
+        if ean not in self._estoque:
+            self._estoque[ean] = Estoque(preco, quantidade)
+        else:
+            self._estoque[ean].quantidade += quantidade
+            self._estoque[ean].preco = preco
 
     def quantidade_produtos(self, ean):
-        quantidade = 0
-        for produto in self.estoque:
-            if produto.ean == ean:
-                quantidade = quantidade + 1
-        return quantidade
+        if ean in self._estoque:
+            return self._estoque[ean].quantidade
+        return 0
 
     def comprar(self, ean):
-        for produto in self.estoque:
-            if str(produto) == ean:
-                self._estoque.remove(produto)
-                return produto
+        if ean in self._estoque and self._estoque[ean].quantidade > 0:
+            self._estoque[ean].quantidade -= 1
+            produto = Produto(preco=self._estoque[ean].preco, ean=ean)
+            return produto
         return None
 
     def devolver_carrinho(self, pedido):
         if isinstance(pedido, Pedido):
             for item in pedido.itens:
                 if isinstance(item, Produto):
-                    self._estoque.append(item)
+                    self.add_estoque(item.ean, item.preco, 1)
             pedido.itens = []
             return pedido

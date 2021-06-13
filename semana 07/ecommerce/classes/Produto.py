@@ -21,4 +21,4 @@ class Produto:
         return self._codigo_ean
 
     def __repr__(self):
-        return 'Produto:' + self._codigo_ean
+        return f'Produto:{self._codigo_ean}'

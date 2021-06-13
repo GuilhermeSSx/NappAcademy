@@ -14,4 +14,4 @@ class Cliente:
         return self._name
 
     def __repr__(self):
-        return 'Cliente => ' + self._name
+        return f'Cliente => {self._name}'
